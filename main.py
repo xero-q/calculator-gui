@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from utils.calculator import Calculator
 from utils.calculator_interface import CalculatorInterface
+from utils.observer import Observer
 import tkinter as tk
 
 win= Tk()
@@ -10,19 +11,21 @@ win= Tk()
 win.geometry("700x350")
 win.resizable(False, False)
 
-calculator = Calculator()
-
 def set_value(value: str):
     entry.delete(0, END)  
     entry.insert(0, value)  
 
-def update_value():
-    set_value(str(calculator.value))
+calculator = Calculator()
+
+class GUIObserver(Observer):
+    def update(self, value):
+       set_value(value) 
 
 entry = Entry(win, font=('Arial', 14))
 entry.pack(pady=10)
 
-calculator_gui = CalculatorInterface(calculator,update_value)
+calculator_gui = CalculatorInterface(calculator)
+calculator_gui.attach(GUIObserver())
 
 positions_buttons = [(160,190),(100,100),(130,100),(160,100),(100,130),(130,130),(160,130),(100,160),(130,160),(160,160)]   
 
@@ -42,6 +45,6 @@ ttk.Button(win, text= "*", command=calculator_gui.operate_multiply).pack(pady= 2
 
 ttk.Button(win, text= "=", command=calculator_gui.operate_equal).pack(pady= 20)
 
-update_value()
+calculator_gui.notify()
 
 win.mainloop()

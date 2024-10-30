@@ -4,13 +4,20 @@ from .calculator import Calculator
 Class that actually connects all the pieces of the Calculator, it receives the Calculator itself and a method for updating the view when its value changes.
 """
 class CalculatorInterface:
-    def __init__(self, calculator: Calculator, update_method):
+    def __init__(self, calculator: Calculator):
         self._calculator = calculator
-        self._update_method = update_method
         self._operand_left = None
         self._operand_right = None
         self._operator = ''
         self._just_added_operator = False
+        self._observers = []
+
+    def attach(self, observer):
+        self._observers.append(observer)
+
+    def notify(self):
+        for observer in self._observers:
+            observer.update(self._calculator.value)
 
     def add_digit(self, digit: int):
         if not self._just_added_operator:
@@ -18,7 +25,7 @@ class CalculatorInterface:
         else:
             self._calculator.value = digit
         self._just_added_operator = False
-        self._update_method()
+        self.notify()
 
     def operate_add(self):
         if self._operand_left is None:        
@@ -29,7 +36,7 @@ class CalculatorInterface:
             self._calculator.value = self._operand_left
             self._calculator.add(self._operand_right)
             self._operand_left = self._calculator.value
-            self._update_method()
+            self.notify()
         else:
             self._operator = '+'
         self._just_added_operator = True  
@@ -43,7 +50,7 @@ class CalculatorInterface:
             self._calculator.value = self._operand_left
             self._calculator.subtract(self._operand_right)
             self._operand_left = self._calculator.value
-            self._update_method()
+            self.notify()
         else:
             self._operator = '-'
         self._just_added_operator = True 
@@ -57,7 +64,7 @@ class CalculatorInterface:
             self._calculator.value = self._operand_left
             self._calculator.multiply(self._operand_right)
             self._operand_left = self._calculator.value
-            self._update_method()
+            self.notify()
         else:
             self._operator = '*'
         self._just_added_operator = True       
@@ -68,30 +75,30 @@ class CalculatorInterface:
                 case '+':
                     self._calculator.value = self._operand_left
                     self._calculator.add(self._operand_right)
-                    self._update_method()
+                    self.notify()
                 case '-':
                     self._calculator.value = self._operand_left
                     self._calculator.subtract(self._operand_right)
-                    self._update_method()
+                    self.notify()
                 case '*':
                     self._calculator.value = self._operand_left
                     self._calculator.multiply(self._operand_right)
-                    self._update_method()
+                    self.notify()
         elif self._operand_left is not None and self._operator:
             self._operand_right = self._calculator.value
             match self._operator:
                 case '+':
                     self._calculator.value = self._operand_left
                     self._calculator.add(self._operand_right)
-                    self._update_method()
+                    self.notify()
                 case '-':
                     self._calculator.value = self._operand_left
                     self._calculator.subtract(self._operand_right)
-                    self._update_method()
+                    self.notify()
                 case '*':
                     self._calculator.value = self._operand_left
                     self._calculator.multiply(self._operand_right)
-                    self._update_method()
+                    self.notify()
 
         self._operand_left = self._calculator.value
         self._operand_right = None
@@ -99,3 +106,4 @@ class CalculatorInterface:
     
     def restart(self):
         self._calculator.restart()
+        self.notify()
