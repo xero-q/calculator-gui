@@ -26,3 +26,11 @@ class Calculator:
             raise ZeroDivisionError('You can not divide by zero')
         
         self._value /= value
+
+    def input_digit(self, digit: int):
+        if self._value >= 0:
+            self._value *= 10
+            self._value += digit
+
+    def restart(self):
+        self._value = 0
