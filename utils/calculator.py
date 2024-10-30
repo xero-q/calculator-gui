@@ -12,6 +12,10 @@ class Calculator:
     def value(self):
         return self._value
     
+    @value.setter
+    def value(self, value):
+        self._value = value
+    
     def add(self, value: int | float):
         self._value += value
 
