@@ -40,6 +40,9 @@ class Calculator:
         
         self._value %= Decimal(value)
 
+    def negate(self):
+        self._value = Decimal(self._value * (-1))
+
     def input_digit(self, digit: int):
         if self._value % 1 == 0: # Integer number
             self._value *= Decimal(10)

@@ -159,3 +159,7 @@ class CalculatorInterface:
         self._operator = ''
         self._calculator.restart()
         self.notify()
+
+    def negate(self):
+        self._calculator.negate()
+        self.notify()

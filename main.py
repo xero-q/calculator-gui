@@ -8,7 +8,7 @@ import tkinter as tk
 win= Tk()
 
 # Set the size of the tkinter window
-win.geometry("350x300")
+win.geometry("370x300")
 win.resizable(False, False)
 
 def set_value(value: str):
@@ -26,7 +26,7 @@ def deny_manual_input(event):
 
 entry = Entry(win, font=('Arial', 14))
 entry.pack(pady=10)
-entry.place(x=50,y=20)
+entry.place(x=50,y=20,width=270)
 
 # Bind the <Key> event to deny manual input
 entry.bind("<Key>", deny_manual_input)
@@ -72,6 +72,10 @@ button_multiply.place(x=180,y=60,width=30,height=30)
 button_subtract = tk.Button(win, text= "-", command=calculator_gui.operate_subtract)
 button_subtract.pack(pady= 20)
 button_subtract.place(x=220,y=60,width=30,height=30)
+
+button_sign = tk.Button(win, text= "+/-", command=calculator_gui.negate)
+button_sign.pack(pady= 20)
+button_sign.place(x=260,y=60,width=30,height=30)
 
 calculator_gui.notify()
 
