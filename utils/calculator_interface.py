@@ -67,7 +67,21 @@ class CalculatorInterface:
             self.notify()
         else:
             self._operator = '*'
-        self._just_added_operator = True       
+        self._just_added_operator = True 
+
+    def operate_divide(self):
+        if self._operand_left is None:        
+            self._operator = '/'
+            self._operand_left = self._calculator.value
+        elif self._operator == '/':
+            self._operand_right = self._calculator.value
+            self._calculator.value = self._operand_left
+            self._calculator.divide(self._operand_right)
+            self._operand_left = self._calculator.value
+            self.notify()
+        else:
+            self._operator = '/'
+        self._just_added_operator = True             
     
     def operate_equal(self):
         if self._operand_left is not None and self._operand_right is not None:
@@ -84,6 +98,10 @@ class CalculatorInterface:
                     self._calculator.value = self._operand_left
                     self._calculator.multiply(self._operand_right)
                     self.notify()
+                case '/':
+                    self._calculator.value = self._operand_left
+                    self._calculator.divide(self._operand_right)
+                    self.notify()
         elif self._operand_left is not None and self._operator:
             self._operand_right = self._calculator.value
             match self._operator:
@@ -98,6 +116,10 @@ class CalculatorInterface:
                 case '*':
                     self._calculator.value = self._operand_left
                     self._calculator.multiply(self._operand_right)
+                    self.notify()
+                case '/':
+                    self._calculator.value = self._operand_left
+                    self._calculator.divide(self._operand_right)
                     self.notify()
 
         self._operand_left = self._calculator.value

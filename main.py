@@ -8,7 +8,7 @@ import tkinter as tk
 win= Tk()
 
 # Set the size of the tkinter window
-win.geometry("700x350")
+win.geometry("700x500")
 win.resizable(False, False)
 
 def set_value(value: str):
@@ -48,6 +48,8 @@ ttk.Button(win, text= "+", command=calculator_gui.operate_add).pack(pady= 20)
 ttk.Button(win, text= "-", command=calculator_gui.operate_subtract).pack(pady= 20)
 
 ttk.Button(win, text= "*", command=calculator_gui.operate_multiply).pack(pady= 20)
+
+ttk.Button(win, text= "/", command=calculator_gui.operate_divide).pack(pady= 20)
 
 ttk.Button(win, text= "=", command=calculator_gui.operate_equal).pack(pady= 20)
 
