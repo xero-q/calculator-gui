@@ -21,8 +21,14 @@ class GUIObserver(Observer):
     def update(self, value):
        set_value(value) 
 
+def deny_manual_input(event):
+    return "break"  # This prevents the key event from being processed
+
 entry = Entry(win, font=('Arial', 14))
 entry.pack(pady=10)
+
+# Bind the <Key> event to deny manual input
+entry.bind("<Key>", deny_manual_input)
 
 calculator_gui = CalculatorInterface(calculator)
 calculator_gui.attach(GUIObserver())
