@@ -161,5 +161,9 @@ class CalculatorInterface:
         self.notify()
 
     def negate(self):
+        if self._operand_left == self._calculator.value:
+            self._operand_left = (-1)*self._calculator.value
+
         self._calculator.negate()
+        
         self.notify()
