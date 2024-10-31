@@ -8,7 +8,7 @@ import tkinter as tk
 win= Tk()
 
 # Set the size of the tkinter window
-win.geometry("700x500")
+win.geometry("350x300")
 win.resizable(False, False)
 
 def set_value(value: str):
@@ -26,6 +26,7 @@ def deny_manual_input(event):
 
 entry = Entry(win, font=('Arial', 14))
 entry.pack(pady=10)
+entry.place(x=50,y=20)
 
 # Bind the <Key> event to deny manual input
 entry.bind("<Key>", deny_manual_input)
@@ -56,7 +57,7 @@ button_equal = tk.Button(win, text= "=", command=calculator_gui.operate_equal)
 button_equal.pack(pady= 20)
 button_equal.place(x=220,y=180,width=30,height=70)
 
-button_percent = tk.Button(win, text= "%", command=calculator_gui.operate_divide)
+button_percent = tk.Button(win, text= "%", command=calculator_gui.operate_modulus)
 button_percent.pack(pady= 20)
 button_percent.place(x=100,y=60,width=30,height=30)
 

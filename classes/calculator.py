@@ -34,6 +34,12 @@ class Calculator:
         
         self._value /= Decimal(value)
 
+    def modulus(self, value: int | float):
+        if value == 0:
+            raise ZeroDivisionError('You can not divide by zero')
+        
+        self._value %= Decimal(value)
+
     def input_digit(self, digit: int):
         if self._value % 1 == 0: # Integer number
             self._value *= Decimal(10)
