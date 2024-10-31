@@ -50,7 +50,4 @@ class Calculator:
    
 
     def restart(self):
-        self._value = Decimal(0)
-        self._operand_left = None
-        self._operand_right = None
-        self._operator = ''
+        self._value = Decimal(0)        

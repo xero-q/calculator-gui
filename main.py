@@ -1,8 +1,8 @@
 from tkinter import *
 from tkinter import ttk
-from utils.calculator import Calculator
-from utils.calculator_interface import CalculatorInterface
-from utils.observer import Observer
+from classes.calculator import Calculator
+from classes.calculator_interface import CalculatorInterface
+from classes.observer import Observer
 import tkinter as tk
 
 win= Tk()
