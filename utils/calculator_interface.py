@@ -3,6 +3,8 @@ from .calculator import Calculator
 """
 Class that actually connects all the pieces of the Calculator, it receives the Calculator itself and a method for updating the view when its value changes.
 """
+import math
+
 class CalculatorInterface:
     def __init__(self, calculator: Calculator):
         self._calculator = calculator
@@ -16,7 +18,9 @@ class CalculatorInterface:
         self._observers.append(observer)
 
     def notify(self):
-        for observer in self._observers:
+        if self._calculator.value == self._calculator.value.to_integral_value():
+            self._calculator.value = int(self._calculator.value)
+        for observer in self._observers:             
             observer.update(self._calculator.value)
 
     def add_digit(self, digit: int):
@@ -127,5 +131,8 @@ class CalculatorInterface:
         self._operator = ''
     
     def restart(self):
+        self._operand_left = None
+        self._operand_right = None
+        self._operator = ''
         self._calculator.restart()
         self.notify()
