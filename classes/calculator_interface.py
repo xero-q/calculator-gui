@@ -3,7 +3,6 @@ from .calculator import Calculator
 """
 Class that actually connects all the pieces of the Calculator, it receives the Calculator itself and a method for updating the view when its value changes.
 """
-import math
 
 class CalculatorInterface:
     def __init__(self, calculator: Calculator):
@@ -21,7 +20,16 @@ class CalculatorInterface:
         if self._calculator.value == self._calculator.value.to_integral_value():
             self._calculator.value = int(self._calculator.value)
         for observer in self._observers:             
-            observer.update(self._calculator.value)
+            observer.update(self._calculator.value)       
+
+    def operate_operands(self):
+        if self._operand_right is not None:
+            match self._operator:
+                case '+':self._calculator.add(self._operand_right)
+                case '-':self._calculator.subtract(self._operand_right)
+                case '*':self._calculator.multiply(self._operand_right)
+                case '/':self._calculator.divide(self._operand_right)
+                case '%':self._calculator.modulus(self._operand_right)
 
     def add_digit(self, digit: int):
         if not self._just_added_operator:
@@ -35,11 +43,13 @@ class CalculatorInterface:
         if self._operand_left is None:        
             self._operator = '+'
             self._operand_left = self._calculator.value
-        elif self._operator == '+':
+        elif self._operator != '':
             self._operand_right = self._calculator.value
             self._calculator.value = self._operand_left
-            self._calculator.add(self._operand_right)
+            self.operate_operands()
             self._operand_left = self._calculator.value
+            self._operand_right = None
+            self._operator = '+'
             self.notify()
         else:
             self._operator = '+'
@@ -49,11 +59,13 @@ class CalculatorInterface:
         if self._operand_left is None:        
             self._operator = '-'
             self._operand_left = self._calculator.value
-        elif self._operator == '-':
+        elif self._operator != '':
             self._operand_right = self._calculator.value
             self._calculator.value = self._operand_left
-            self._calculator.subtract(self._operand_right)
+            self.operate_operands()
             self._operand_left = self._calculator.value
+            self._operand_right = None
+            self._operator = '-'
             self.notify()
         else:
             self._operator = '-'
@@ -63,11 +75,13 @@ class CalculatorInterface:
         if self._operand_left is None:        
             self._operator = '*'
             self._operand_left = self._calculator.value
-        elif self._operator == '*':
+        elif self._operator != '':
             self._operand_right = self._calculator.value
             self._calculator.value = self._operand_left
-            self._calculator.multiply(self._operand_right)
+            self.operate_operands()
             self._operand_left = self._calculator.value
+            self._operand_right = None
+            self._operator = '*'
             self.notify()
         else:
             self._operator = '*'
@@ -77,11 +91,13 @@ class CalculatorInterface:
         if self._operand_left is None:        
             self._operator = '/'
             self._operand_left = self._calculator.value
-        elif self._operator == '/':
+        elif self._operator != '':
             self._operand_right = self._calculator.value
             self._calculator.value = self._operand_left
-            self._calculator.divide(self._operand_right)
+            self.operate_operands()
             self._operand_left = self._calculator.value
+            self._operand_right = None
+            self._operator = '/'
             self.notify()
         else:
             self._operator = '/'
@@ -91,11 +107,13 @@ class CalculatorInterface:
         if self._operand_left is None:        
             self._operator = '%'
             self._operand_left = self._calculator.value
-        elif self._operator == '%':
+        elif self._operator != '':
             self._operand_right = self._calculator.value
             self._calculator.value = self._operand_left
-            self._calculator.modulus(self._operand_right)
+            self.operate_operands()
             self._operand_left = self._calculator.value
+            self._operand_right = None
+            self._operator = '%'
             self.notify()
         else:
             self._operator = '%'
