@@ -1,7 +1,7 @@
 from .calculator import Calculator
 
 """
-Class that actually connects all the pieces of the Calculator, it receives the Calculator itself and a method for updating the view when its value changes.
+Class that actually connects all the pieces of the Calculator, it receives the Calculator itself and uses the Observer pattern for updating the GUIs.
 """
 
 class CalculatorInterface:
