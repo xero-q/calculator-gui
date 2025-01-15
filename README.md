@@ -30,6 +30,12 @@ sudo dnf install python3-tkinter
 sudo pacman -S tk
 ```
 
+### Install requirements
+
+```sh
+pip install -r requirements.txt
+```
+
 ### Running the app:
 
 ```sh
