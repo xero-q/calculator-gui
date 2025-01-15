@@ -19,26 +19,29 @@ class Calculator:
     def value(self, value):
         self._value = Decimal(value)
     
-    def add(self, value: int | float):
+    def add(self, value: int | float | Decimal):
         self._value += Decimal(value)
 
-    def subtract(self, value: int | float):
+    def subtract(self, value: int | float | Decimal):
         self._value -= Decimal(value)
 
-    def multiply(self, value: int | float):
+    def multiply(self, value: int | float | Decimal):
         self._value *= Decimal(value)
 
-    def divide(self, value: int | float):
+    def divide(self, value: int | float | Decimal):
         if value == 0:
             raise ZeroDivisionError('You can not divide by zero')
         
         self._value /= Decimal(value)
 
-    def modulus(self, value: int | float):
+    def modulus(self, value: int | float | Decimal):
         if value == 0:
             raise ZeroDivisionError('You can not divide by zero')
         
         self._value %= Decimal(value)
+
+    def negate(self):
+        self._value = Decimal(self._value * (-1))
 
     def input_digit(self, digit: int):
         if self._value % 1 == 0: # Integer number
