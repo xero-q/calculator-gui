@@ -1,5 +1,4 @@
 from tkinter import *
-from tkinter import ttk
 from classes.calculator import Calculator
 from classes.calculator_interface import CalculatorInterface
 from classes.observer import Observer
