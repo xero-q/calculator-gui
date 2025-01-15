@@ -1,4 +1,5 @@
 from .calculator import Calculator
+from tkinter import messagebox
 
 """
 Class that actually connects all the pieces of the Calculator, it receives the Calculator itself and uses the Observer pattern for updating the GUIs.
@@ -137,7 +138,10 @@ class CalculatorInterface:
                     self.notify()
                 case '/':
                     self._calculator.value = self._operand_left
-                    self._calculator.divide(self._operand_right)
+                    try:
+                        self._calculator.divide(self._operand_right)
+                    except Exception as ex:
+                        messagebox.showerror("Error", str(ex))
                     self.notify()
                 case '%':
                     self._calculator.value = self._operand_left
@@ -160,7 +164,10 @@ class CalculatorInterface:
                     self.notify()
                 case '/':
                     self._calculator.value = self._operand_left
-                    self._calculator.divide(self._operand_right)
+                    try:
+                        self._calculator.divide(self._operand_right)
+                    except Exception as ex:
+                        messagebox.showerror("Error", str(ex))
                     self.notify()
                 case '%':
                     self._calculator.value = self._operand_left

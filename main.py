@@ -3,6 +3,7 @@ from tkinter import ttk
 from classes.calculator import Calculator
 from classes.calculator_interface import CalculatorInterface
 from classes.observer import Observer
+
 import tkinter as tk
 
 win= Tk()
@@ -82,3 +83,4 @@ def main():
 
 if __name__=="__main__":
     main()
+

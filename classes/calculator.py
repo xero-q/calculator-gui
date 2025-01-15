@@ -7,6 +7,7 @@ Raises:
 
 from decimal import Decimal
 
+
 class Calculator:
     def __init__(self, value = "0"):
         self._value = Decimal(value)
